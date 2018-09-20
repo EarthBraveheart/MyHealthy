@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">MyHealthy</string>
+    <string name="user">Username</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="repassword">Re-password</string>
+    <string name="login_btn">Login</string>
+    <string name="register">Register</string>
+    <string name="register_btn">Register New Account</string>
+    <string name="back">Back</string>
+</resources>
