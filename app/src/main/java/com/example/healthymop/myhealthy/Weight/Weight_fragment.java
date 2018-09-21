@@ -1,7 +1,6 @@
 package com.example.healthymop.myhealthy.Weight;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -46,17 +45,23 @@ public class Weight_fragment extends Fragment{
         fbStore = FirebaseFirestore.getInstance();
 
         final ListView _weightList = getView().findViewById(R.id.weight_list);
+
         final WeightAdapter _weightAdapter = new WeightAdapter(getActivity(), R.layout.fragment_weight_item, weights);
+
         _weightList.setAdapter(_weightAdapter);
-        fbStore.collection("myFitness").document(fbAuth.getUid()).collection("weight").addSnapshotListener(new EventListener<QuerySnapshot>() {
+
+        fbStore.collection("myfitness").document(fbAuth.getUid()).collection("weight").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
-            public void onEvent(@javax.annotation.Nullable QuerySnapshot queryDocumentSnapshots, @javax.annotation.Nullable FirebaseFirestoreException e) {
+            public void onEvent(@javax.annotation.Nullable QuerySnapshot queryDocumentSnapshots,
+                                @javax.annotation.Nullable FirebaseFirestoreException e) {
                 _weightAdapter.clear();
                 for (QueryDocumentSnapshot doc : queryDocumentSnapshots){
                     weights.add(doc.toObject(Weight.class));
                 }
                 Collections.reverse(weights);
                 initAssignStatus();
+
+                _weightAdapter.notifyDataSetChanged();
             }
         });
     }
@@ -76,8 +81,8 @@ public class Weight_fragment extends Fragment{
             @Override
             public void onClick(View v) {
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new WeightForm_fragment()).commit();
-                Log.d("WEIGHT", "Goto Weight");
-        }
+                Log.d("WEIGHT", "Hello Add Weight");
+            }
         });
     }
 }

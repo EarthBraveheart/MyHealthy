@@ -50,7 +50,7 @@ public class WeightForm_fragment extends Fragment{
                 String _dateStr = _date.getText().toString();
                 _dateStr = _dateStr.replace("/", "-");
                 Weight weightObj = new Weight(_dateStr, weightInt);
-                fbStore.collection("myFitness").document(uid).collection("weight").document(_dateStr).set(weightObj).addOnSuccessListener(new OnSuccessListener<Void>() {
+                fbStore.collection("myfitness").document(uid).collection("weight").document(_dateStr).set(weightObj).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view,new Weight_fragment()).commit();
