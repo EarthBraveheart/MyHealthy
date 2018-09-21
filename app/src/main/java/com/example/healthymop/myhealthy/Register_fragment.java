@@ -1,6 +1,7 @@
 package com.example.healthymop.myhealthy;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -11,7 +12,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class Register_fragment extends Fragment{
+
+    private FirebaseAuth fbAuth;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -19,6 +29,7 @@ public class Register_fragment extends Fragment{
     }
     public void onActivityCreated(@Nullable Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
+        fbAuth = FirebaseAuth.getInstance();
         Log.d("LOGIN", "On Create");
         initNewaccount();
         initBack();
@@ -47,6 +58,15 @@ public class Register_fragment extends Fragment{
                     Toast.makeText(getActivity(), "Password doesn't match with Repassword", Toast.LENGTH_SHORT).show();
                     Log.d("REGISTER", "Password doesn't match");
                 }
+                else {
+                    fbAuth.createUserWithEmailAndPassword(_regEmailStr, _regPasswordStr).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                        @Override
+                        public void onSuccess(AuthResult authResult) {
+                            sandVerifiedEmail(authResult.getUser());
+                            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new Login_fragment()).commit();
+                        }
+                    });
+                }
             }
         });
     }
@@ -58,6 +78,20 @@ public class Register_fragment extends Fragment{
             public void onClick(View v) {
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new Login_fragment()).commit();
                 Log.d("REGISTER", "Back to Login");
+            }
+        });
+    }
+
+    private void sandVerifiedEmail (FirebaseUser _user){
+        _user.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
             }
         });
     }

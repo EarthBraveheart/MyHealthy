@@ -13,6 +13,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.ArrayList;
 
 
@@ -21,10 +23,12 @@ public class Menu_fragment extends Fragment{
 
 
     ArrayList<String> _menu = new ArrayList<>();
+    FirebaseAuth fnAuth;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        fnAuth = FirebaseAuth.getInstance();
         _menu.add("BMI");
         _menu.add("Weight");
         _menu.add("Setup");
@@ -47,6 +51,7 @@ public class Menu_fragment extends Fragment{
                     Toast.makeText(getActivity(), "Weight", Toast.LENGTH_SHORT).show();
                 }
                 else if (_menu.get(i).equals("Sign out")){
+                    fnAuth.signOut();
                     Log.d("MENU", "SIGN OUT");
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new Login_fragment()).commit();
                 }

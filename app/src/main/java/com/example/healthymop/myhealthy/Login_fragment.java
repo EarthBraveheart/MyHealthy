@@ -1,6 +1,7 @@
 package com.example.healthymop.myhealthy;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -12,6 +13,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class Login_fragment extends Fragment{
@@ -41,13 +45,28 @@ public class Login_fragment extends Fragment{
                 String _userStr =  _user.getText().toString();
                 String _passwordStr =  _password.getText().toString();
                 if (_userStr.isEmpty() || _passwordStr.isEmpty()){
-                    Toast.makeText(getActivity(), "Plase enter your email or password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Please enter your email or password", Toast.LENGTH_SHORT).show();
                     Log.d("LOGIN", "Email or Password is empty");
                 }
-//                else if (_userStr.equals("admin") && _passwordStr.equals("admin")){
-//                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new Menu_fragment()).commit();
-//                    Log.d("LOGIN", "Goto menu");
-//                }
+                else{
+                    fbAuth.signInWithEmailAndPassword(_userStr, _passwordStr).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                        @Override
+                        public void onSuccess(AuthResult authResult) {
+                            if (fbAuth.getCurrentUser().isEmailVerified()){
+                                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new Menu_fragment()).commit();
+                            }
+                            else{
+                                Toast.makeText(getActivity(), "Please verify your email.", Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(getActivity(), "Please enter your correct email and password.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
             }
         });
     }
