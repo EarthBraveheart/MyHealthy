@@ -12,7 +12,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class Login_fragment extends Fragment{
+    FirebaseAuth fbAuth;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -27,6 +31,7 @@ public class Login_fragment extends Fragment{
     }
 
     void initLoginbtn(){
+        fbAuth = FirebaseAuth.getInstance();
         Button _loginBtn = (Button) getView().findViewById(R.id.login_login_btn);
         _loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,10 +44,10 @@ public class Login_fragment extends Fragment{
                     Toast.makeText(getActivity(), "Plase enter your email or password", Toast.LENGTH_SHORT).show();
                     Log.d("LOGIN", "Email or Password is empty");
                 }
-                else if (_userStr.equals("admin") && _passwordStr.equals("admin")){
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new Menu_fragment()).commit();
-                    Log.d("LOGIN", "Goto menu");
-                }
+//                else if (_userStr.equals("admin") && _passwordStr.equals("admin")){
+//                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new Menu_fragment()).commit();
+//                    Log.d("LOGIN", "Goto menu");
+//                }
             }
         });
     }
