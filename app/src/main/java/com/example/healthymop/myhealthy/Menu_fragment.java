@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.healthymop.myhealthy.Weight.Weight_fragment;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
@@ -31,7 +32,6 @@ public class Menu_fragment extends Fragment{
         fnAuth = FirebaseAuth.getInstance();
         _menu.add("BMI");
         _menu.add("Weight");
-        _menu.add("Setup");
         _menu.add("Sign out");
 
         ListView menuList = getView().findViewById(R.id.menu_list);
@@ -44,11 +44,11 @@ public class Menu_fragment extends Fragment{
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long id) {
                 if (_menu.get(i).equals("BMI")){
                     Log.d("MENU", "Goto BMI");
-                    Toast.makeText(getActivity(), "BMI", Toast.LENGTH_SHORT).show();
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new Bmi_fragment()).commit();
                 }
                 else if (_menu.get(i).equals("Weight")){
                     Log.d("MENU", "Goto Weight");
-                    Toast.makeText(getActivity(), "Weight", Toast.LENGTH_SHORT).show();
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new Weight_fragment()).commit();
                 }
                 else if (_menu.get(i).equals("Sign out")){
                     fnAuth.signOut();

@@ -2,17 +2,22 @@ package com.example.healthymop.myhealthy.Weight;
 
 public class Weight {
     String date;
-    float weight;
+    int weight;
     String status;
 
 
-public Weight(String date, float weight, String status){
+public Weight(String date, int weight, String status){
     this.date = date;
     this.weight = weight;
     this.status = status;
 }
 
-public float getWeight(){
+public Weight(String date, int weight){
+    this.date = date;
+    this.weight = weight;
+}
+
+public int getWeight(){
     return weight;
 }
 
@@ -24,7 +29,7 @@ public String getStatus(){
     return status;
 }
 
-public void setWeight(float weight){
+public void setWeight(int weight){
     this.weight = weight;
 }
 
