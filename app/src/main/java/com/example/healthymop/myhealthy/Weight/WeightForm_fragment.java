@@ -53,7 +53,7 @@ public class WeightForm_fragment extends Fragment{
                 fbStore.collection("myfitness").document(uid).collection("weight").document(_dateStr).set(weightObj).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view,new Weight_fragment()).commit();
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view,new Weight_fragment()).addToBackStack(null).commit();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override

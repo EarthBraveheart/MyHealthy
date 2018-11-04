@@ -80,7 +80,7 @@ public class Weight_fragment extends Fragment{
         _addWeightBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new WeightForm_fragment()).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new WeightForm_fragment()).addToBackStack(null).commit();
                 Log.d("WEIGHT", "Hello Add Weight");
             }
         });

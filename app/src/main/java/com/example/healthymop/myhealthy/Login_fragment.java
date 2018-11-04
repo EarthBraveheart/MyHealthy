@@ -53,7 +53,7 @@ public class Login_fragment extends Fragment{
                         @Override
                         public void onSuccess(AuthResult authResult) {
                             if (fbAuth.getCurrentUser().isEmailVerified()){
-                                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new Menu_fragment()).commit();
+                                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new Menu_fragment()).addToBackStack(null).commit();
                             }
                             else{
                                 Toast.makeText(getActivity(), "Please verify your email.", Toast.LENGTH_SHORT).show();
@@ -78,7 +78,7 @@ public class Login_fragment extends Fragment{
             @Override
             public void onClick(View view) {
                 Log.d("LOGIN", "goto register");
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new Register_fragment()).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new Register_fragment()).addToBackStack(null).commit();
             }
         });
     }

@@ -63,7 +63,7 @@ public class Register_fragment extends Fragment{
                         @Override
                         public void onSuccess(AuthResult authResult) {
                             sandVerifiedEmail(authResult.getUser());
-                            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new Login_fragment()).commit();
+                            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new Login_fragment()).addToBackStack(null).commit();
                         }
                     });
                 }
@@ -76,7 +76,7 @@ public class Register_fragment extends Fragment{
         _backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new Login_fragment()).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new Login_fragment()).addToBackStack(null).commit();
                 Log.d("REGISTER", "Back to Login");
             }
         });

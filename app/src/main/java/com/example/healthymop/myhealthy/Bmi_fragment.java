@@ -59,7 +59,7 @@ public class Bmi_fragment extends Fragment{
             @Override
             public void onClick(View v) {
                 Log.d("BMI", "BackButtonBMI");
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new Menu_fragment()).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new Menu_fragment()).addToBackStack(null).commit();
             }
         });
     }
