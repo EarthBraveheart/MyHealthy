@@ -24,7 +24,7 @@ public class addSleep_fragment extends Fragment{
     public void onCreate(@Nullable Bundle saveInstanceState){
         super.onCreate(saveInstanceState);
         myDB = getActivity().openOrCreateDatabase("my.db", Context.MODE_PRIVATE, null);
-        myDB.execSQL("CREATE TABLE IF NOT EXISTS sleep (id INTEGER PRIMARY KEY AUTOINCREMENT, date VARCHAR(10), toBedTime VARCHAR(5), awakeTime VARCHAR(5))");
+        myDB.execSQL("CREATE TABLE IF NOT EXISTS sleeps (id INTEGER PRIMARY KEY AUTOINCREMENT, date VARCHAR(10), toBedTime VARCHAR(5), awakeTime VARCHAR(5))");
 
         Bundle bundle = getArguments();
         try {
