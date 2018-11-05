@@ -21,22 +21,22 @@ public class Sleep_fragment extends Fragment{
     SQLiteDatabase myDB;
 
     @Override
-    public void onCreate(@Nullable Bundle saveInstanceState){
-        super.onCreate(saveInstanceState);
+    public void onCreate(@Nullable Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
 
         myDB = getActivity().openOrCreateDatabase("my.db", Context.MODE_PRIVATE, null);
-        myDB.execSQL("CREATE TABLE IF NOT EXISTS sleep (id INTEGER PRIMARY KEY AUTOINCREMENT, date VARCHAR(10), toBedTime VARCHAR(5), awakeTime VARCHAR(5))");
+        myDB.execSQL("CREATE TABLE IF NOT EXISTS sleeps (id INTEGER PRIMARY KEY AUTOINCREMENT, date VARCHAR(10), toBedTime VARCHAR(5), awakeTime VARCHAR(5))");
     }
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle saveInstanceState){
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
         return inflater.inflate(R.layout.fragment_sleep, container, false);
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle saveInstanceState){
-        super.onActivityCreated(saveInstanceState);
+    public void onActivityCreated(@Nullable Bundle savedInstanceState){
+        super.onActivityCreated(savedInstanceState);
 
         initBackBtn();
         initAddBtn();
@@ -64,7 +64,7 @@ public class Sleep_fragment extends Fragment{
     }
 
     public void getAndShowData(){
-        Cursor cursor = myDB.rawQuery("select id , date, toBedTime, awakeTime from sleep", null);
+        Cursor cursor = myDB.rawQuery("select id, date, toBedTime, awakeTime from sleeps", null);
         final ArrayList<Sleep> sleepList = new ArrayList<>();
         while(cursor.moveToNext()){
             int id = cursor.getInt(0);
@@ -88,11 +88,11 @@ public class Sleep_fragment extends Fragment{
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("sleep object", sleepList.get(position));
-                Fragment addSleep_fragment = new addSleep_fragment();
-                addSleep_fragment.setArguments(bundle);
+                Fragment addSleepFragment = new addSleep_fragment();
+                addSleepFragment.setArguments(bundle);
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                ft.replace(R.id.main_view, addSleep_fragment).addToBackStack(null).commit();
+                ft.replace(R.id.main_view, addSleepFragment).addToBackStack(null).commit();
             }
         });
     }
