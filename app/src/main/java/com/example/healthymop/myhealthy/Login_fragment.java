@@ -29,6 +29,12 @@ public class Login_fragment extends Fragment{
 
     public void onActivityCreated(@Nullable Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
+        fbAuth = FirebaseAuth.getInstance();
+        if (fbAuth.getCurrentUser() != null){
+            Log.d("LOGIN", "already logged in");
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new Menu_fragment()).commit();
+        }
+
         Log.d("LOGIN", "On Create");
         initLoginbtn();
         initRegisterbtn();

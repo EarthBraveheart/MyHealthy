@@ -27,6 +27,7 @@ public class Menu_fragment extends Fragment{
         _menu.add("BMI");
         _menu.add("Weight");
         _menu.add("Sleep");
+        _menu.add("Post");
         _menu.add("Sign out");
     }
 
@@ -64,6 +65,10 @@ public class Menu_fragment extends Fragment{
                 else if (_menu.get(i).equals("Sleep")){
                     Log.d("MENU", "Goto Sleep");
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new Sleep_fragment()).addToBackStack(null).commit();
+                }
+                else if(_menu.get(i).equals("Post")){
+                    Log.d("MENU", "Goto Post");
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new Post_fragment()).addToBackStack(null).commit();
                 }
                 else if (_menu.get(i).equals("Sign out")){
                     fnAuth.signOut();
